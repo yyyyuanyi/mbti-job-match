@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>职场性格测评</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app">
+
+    <!-- ============ 页面 1：填表页 ============ -->
+    <section class="page active" id="page-form">
+      <h1 class="page-title">职场性格测评</h1>
+      <p class="page-sub">先简单了解一下你，再进入正式测评。</p>
+
+      <div class="card">
+        <div class="field">
+          <label class="field-label" for="education">学历 <span class="required">*</span></label>
+          <select id="education" class="input">
+            <option value="">请选择</option>
+            <option value="初中及以下">初中及以下</option>
+            <option value="高中">高中</option>
+            <option value="中专">中专</option>
+            <option value="职高">职高</option>
+            <option value="大专">大专</option>
+            <option value="本科及以上">本科及以上</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="city-tier">所在城市 <span class="required">*</span></label>
+          <select id="city-tier" class="input">
+            <option value="一线城市">一线城市（北京 / 上海 / 广州 / 深圳）</option>
+            <option value="新一线城市">新一线城市（成都 / 杭州 / 重庆 / 武汉等）</option>
+            <option value="二线城市" selected>二线城市</option>
+            <option value="三线城市">三线城市</option>
+            <option value="四五线城市">四五线城市</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="gender">性别 <span class="required">*</span></label>
+          <select id="gender" class="input">
+            <option value="">请选择</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <span class="field-label">是否有意向专业 <span class="required">*</span></span>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="has-major" value="yes" /> 有</label>
+            <label class="radio"><input type="radio" name="has-major" value="no" /> 无</label>
+          </div>
+          <div class="field" id="major-wrapper" style="display:none;">
+            <label class="field-label" for="major">意向专业</label>
+            <input type="text" id="major" class="input" placeholder="请输入意向专业，如：计算机 / 护理 / 汽修" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="certificates">证书 / 获奖</label>
+          <textarea id="certificates" class="input textarea" rows="3" placeholder="选填，可填写已取得的证书或获奖经历"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="strengths">个人特长 <span class="required">*</span></label>
+          <textarea id="strengths" class="input textarea" rows="3" placeholder="必填，请简要描述你的特长或优势"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="health">身体情况</label>
+          <textarea id="health" class="input textarea" rows="3" placeholder="选填，如有特殊情况请备注"></textarea>
+          <p class="hint">提示：请自查并备注，例如「腿脚不便」「不能熬夜」「对粉尘/花粉/特定药物过敏」等，便于后续建议更贴合你的实际情况。</p>
+        </div>
+
+        <p class="privacy">隐私提示：我们承诺保护你的个人信息，以上内容仅用于本次测评与报告生成，不会对外公开或用于其他用途。</p>
+
+        <button type="button" class="btn btn-primary btn-block" id="btn-next">下一步</button>
+      </div>
+    </section>
+
+    <!-- ============ 页面 2：问卷页 ============ -->
+    <section class="page" id="page-quiz">
+      <h1 class="page-title">职场场景问卷</h1>
+      <p class="page-sub">共 20 题，请根据你的真实情况作答，答案无对错之分。</p>
+      <div id="questions-container"></div>
+      <div class="sticky-actions">
+        <button type="button" class="btn btn-primary btn-block" id="btn-submit">提交</button>
+      </div>
+    </section>
+
+    <!-- ============ 页面 3：模式选择页 ============ -->
+    <section class="page" id="page-mode">
+      <h1 class="page-title">选择报告浏览模式</h1>
+      <p class="page-sub">你想以哪种方式查看你的测评报告？</p>
+      <div class="mode-grid">
+        <button type="button" class="btn btn-mode" id="btn-explore">
+          <span class="mode-name">分步探索模式</span>
+          <span class="mode-desc">逐段展开，慢慢了解每一项结果</span>
+        </button>
+        <button type="button" class="btn btn-mode" id="btn-direct">
+          <span class="mode-name">一键直达模式</span>
+          <span class="mode-desc">一次性查看完整报告</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ 页面 4：报告页 ============ -->
+    <section class="page" id="page-report">
+      <h1 class="page-title">你的测评报告</h1>
+      <div id="report-content" class="card"></div>
+      <button type="button" class="btn btn-primary btn-block" id="btn-copy">复制报告文本</button>
+      <button type="button" class="btn btn-ghost btn-block" id="btn-restart">重新测评</button>
+    </section>
+
+  </main>
+
+  <script src="./js/mbti.js"></script>
+  <script src="./js/jobs.js"></script>
+  <script src="./js/filter.js"></script>
+  <script src="./js/match.js"></script>
+  <script src="./js/report.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
